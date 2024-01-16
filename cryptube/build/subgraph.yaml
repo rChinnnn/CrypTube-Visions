@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: CrypTube
+    network: mumbai
+    source:
+      address: "0x542F9C43026207BBD2a1eA2dC6a75832997E0362"
+      abi: CrypTube
+      startBlock: 44583804
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - VideoUploaded
+      abis:
+        - name: CrypTube
+          file: CrypTube/abis/CrypTube.json
+      eventHandlers:
+        - event: VideoUploaded(uint256,string,string,string,string,string,string,string,address)
+          handler: handleVideoUploaded
+      file: CrypTube/CrypTube.wasm

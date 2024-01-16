@@ -2,15 +2,22 @@ import { VideoUploaded as VideoUploadedEvent } from "../generated/CrypTube/CrypT
 import { VideoUploaded } from "../generated/schema"
 
 export function handleVideoUploaded(event: VideoUploadedEvent): void {
-	let video = new VideoUploaded(event.params.id.toString())
-	video.hash = event.params.hash
-	video.title = event.params.title
-	video.description = event.params.description
-	video.location = event.params.location
-	video.category = event.params.category
-	video.thumbnailHash = event.params.thumbnailHash
-	video.date = event.params.date
-	video.author = event.params.author
-	video.createdAt = event.block.timestamp
-	video.save()
+  let entity = new VideoUploaded(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.CrypTube_id = event.params.id
+  entity.hash = event.params.hash
+  entity.title = event.params.title
+  entity.description = event.params.description
+  entity.location = event.params.location
+  entity.category = event.params.category
+  entity.thumbnailHash = event.params.thumbnailHash
+  entity.date = event.params.date
+  entity.author = event.params.author
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
 }
