@@ -1,4 +1,4 @@
-import ContractAbi from "../artifacts/contracts/CrypTube.sol/CrypTube.json"
+import ContractAbi from "../../artifacts/contracts/CrypTube.sol/CrypTube.json"
 import { ethers } from "ethers"
 import { CONTRACT_ADDRESS } from "../constants"
 
